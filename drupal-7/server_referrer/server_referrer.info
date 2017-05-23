@@ -1,0 +1,3 @@
+name = Get Server Variables
+description = Get Server variables!
+core = 7.x

@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * Implements hook_token_info().
+ *
+ * @ingroup server_referrer
+ */
+ 
+function server_referrer_token_info() {
+  $info = array();
+
+  $info['types']['server'] = array(
+    'name' => t('Server vars'),
+    'description' => t('Tokens from _SERVER.'),
+  );
+
+  $info['tokens']['server']['HTTP_REFERER'] = array(
+    'name' => t('HTTP_REFERER'),
+    'description' => t("Var from _SERVER"),
+  );
+
+  $info['tokens']['server']['HTTP_USER_AGENT'] = array(
+    'name' => t('HTTP_USER_AGENT'),
+    'description' => t("Var from _SERVER"),
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ *
+ * @ingroup server_referrer
+ */
+function server_referrer_tokens($type, $tokens, array $data = array(), array $options = array()) {
+  $replacements = array();
+  $sanitize = !empty($options['sanitize']);
+
+  // Text format tokens.
+  if ($type == 'server') {
+
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'HTTP_REFERER':
+          $replacements[$original] = $_SERVER['HTTP_REFERER'];
+          if ($sanitize) {
+            $replacements[$original] = filter_xss($replacements[$original]);
+          }
+          break;
+
+        case 'HTTP_USER_AGENT':
+          $replacements[$original] = $_SERVER['HTTP_USER_AGENT'];
+          if ($sanitize) {
+            $replacements[$original] = filter_xss($replacements[$original]);
+          }
+          break;
+      }
+    }
+  }
+  return $replacements;
+}
