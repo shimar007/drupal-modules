@@ -1,0 +1,13 @@
+<?php
+
+use Drupal\schedulerContent\Controller\ContentUnpublishData;
+
+/**
+ * Implements hook_cron().
+ */
+
+function schedulerContent_cron() {
+    ContentUnpublishData::unpublishData();
+}
+
+?>

@@ -1,0 +1,6 @@
+name: Content Unpublish
+type: module
+description: 'Content Unpublish at a specific time'
+package: Custom
+core: 8.x
+version: 8.x

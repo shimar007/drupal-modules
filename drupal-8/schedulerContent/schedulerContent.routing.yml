@@ -1,0 +1,7 @@
+schedulerContent.content:
+  path: '/scheduler-content'
+  defaults:
+    _controller: 'Drupal\schedulerContent\Controller\ContentUnpublishData::unpublishData'
+    _title: 'Scheduler Content'
+  requirements:
+    _permission: 'access content'
